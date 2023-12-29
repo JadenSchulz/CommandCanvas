@@ -8,7 +8,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System;
 
-const int WindowWidth = 64;
+const int WindowWidth = 128;
 const int WindowHeight = 32;
 
 const string chars = " .'^:+O#@$";
