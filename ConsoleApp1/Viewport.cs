@@ -29,11 +29,16 @@ namespace AsciiDraw
             _handle = ConsoleHelper.GetOutputHandle();
         }
 
+        public void Initialize()
+        {
+            Console.SetWindowSize(width, height);
+            Console.SetBufferSize(width, height);
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+        }
+
         public void Draw()
         {
             _draw = true;
-            Console.SetWindowSize(width, height);
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
             Thread drawThread = new Thread(DrawLoop);
             drawThread.Start();
         }

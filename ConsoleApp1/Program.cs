@@ -15,6 +15,7 @@ const string chars = " .'^:+O#@$";
 const string alt = "░▒▓";
 
 Viewport viewport = new Viewport(WindowWidth, WindowHeight);
+viewport.Initialize();
 viewport.Draw();
 
 Console.ReadKey(false);
