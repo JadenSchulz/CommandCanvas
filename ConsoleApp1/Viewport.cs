@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using AsciiDraw;
+using AsciiDraw.Shapes;
 
 namespace AsciiDraw
 {
@@ -19,6 +20,7 @@ namespace AsciiDraw
         private short width;
         private short height;
 
+        private readonly Quad myQuad = new Quad(new Vector(25, 0), new Vector(0, 10), new Vector(5, 25), new Vector(30, 15), null);
 
         public Viewport(short width, short height) 
         {
@@ -47,16 +49,28 @@ namespace AsciiDraw
 
         public CharInfo[,] CreatePage(int mod = 0)
         {
-            CharInfo[,] page = new CharInfo[width, height];
-            for (int i = 0; i < height; i++)
+            CharInfo[,] page = new CharInfo[height, width];
+            for (int y = 0; y < height; y++)
             {
-                for (int j = 0; j < width; j++)
+                for (int x = 0; x < width; x++)
                 {
-                    page[j, i] = new CharInfo
+                    if (myQuad.PointIsInside(new Vector(y, x)))
                     {
-                        Char = (char)(i + 64 + mod),
-                        Attributes = 0x0040
-                    };
+                        page[y, x] = new CharInfo
+                        {
+                            Char = '@',
+                            Attributes = 0x0040
+                        };
+                    }
+                    else
+                    {
+                        page[y, x] = new CharInfo
+                        {
+                            Char = ' ',
+                            Attributes = 0x0000
+                        };
+                    }
+
                 }
             }
             return page;

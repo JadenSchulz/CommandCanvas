@@ -16,7 +16,7 @@ namespace AsciiDraw
             X = x;
             Y = y;
         }
-        public double Dot(Vector with)
+        public int Dot(Vector with)
         {
             return (X * with.X) + (Y * with.Y);
         }
@@ -28,7 +28,9 @@ namespace AsciiDraw
 
         public Vector VectorTo(Vector to)
         {
-            return new Vector(to.X - X, to.Y - Y);
+            int x2 = (to.X - X);
+            int y2 = (to.Y - Y); 
+            return new Vector(x2, y2);
         }
     }
 
