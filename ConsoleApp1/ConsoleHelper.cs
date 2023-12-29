@@ -9,33 +9,32 @@ using System.Threading.Tasks;
 
 namespace AsciiDraw
 {
-
+    [StructLayout(LayoutKind.Sequential)]
+    struct Rectangle
+    {
+        public short left, top, right, bottom;
+        public Rectangle(short left, short top, short right, short bottom)
+        {
+            this.left = left; this.top = top; this.right = right; this.bottom = bottom;
+        }
+    }
+    [StructLayout(LayoutKind.Explicit)]
+    struct CharInfo
+    {
+        [FieldOffset(0)] public ushort Char;
+        [FieldOffset(2)] public short Attributes;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct Coord
+    {
+        public short x, y;
+        public Coord(short x, short y)
+        {
+            this.x = x; this.y = y;
+        }
+    }
     internal class ConsoleHelper
     {
-        [StructLayout(LayoutKind.Sequential)]
-        public struct Rectangle
-        {
-            public short left, top, right, bottom;
-            public Rectangle(short left, short top, short right, short bottom)
-            {
-                this.left = left; this.top = top; this.right = right; this.bottom = bottom;
-            }
-        }
-        [StructLayout(LayoutKind.Explicit)]
-        public struct CharInfo
-        {
-            [FieldOffset(0)] public ushort Char;
-            [FieldOffset(2)] public short Attributes;
-        }
-        [StructLayout(LayoutKind.Sequential)]
-        public struct Coord
-        {
-            public short x, y;
-            public Coord(short x, short y)
-            {
-                this.x = x; this.y = y;
-            }
-        }
         public static SafeFileHandle GetOutputHandle()
         {
             [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
