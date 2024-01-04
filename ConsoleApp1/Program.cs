@@ -8,16 +8,10 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System;
 
-const int WindowWidth = 64;
-const int WindowHeight = 32;
 
 const string chars = " .'^:+O#@$";
 const string alt = "░▒▓";
 
-Viewport viewport = new Viewport(WindowWidth, WindowHeight);
+Viewport viewport = new Viewport(32, 48);
 viewport.Initialize();
 viewport.Draw();
-
-Console.ReadKey(false);
-viewport.Interrupt();
-

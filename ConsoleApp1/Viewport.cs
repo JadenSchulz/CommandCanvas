@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AsciiDraw;
 using AsciiDraw.Shapes;
+using System.ComponentModel.DataAnnotations;
 
 namespace AsciiDraw
 {
@@ -20,7 +21,7 @@ namespace AsciiDraw
         private short width;
         private short height;
 
-        private readonly Quad myQuad = new Quad(new Vector(25, 0), new Vector(0, 10), new Vector(5, 25), new Vector(30, 15), null);
+        private readonly IShape myShape = new Triangle(new Vector(20, 0), new Vector(0, 20), new Vector(0, 0));
 
         public Viewport(short width, short height) 
         {
@@ -45,36 +46,49 @@ namespace AsciiDraw
 
         private void DrawLoop()
         {
-            int mod = 0;
+            ushort mod = 0;
             while (_draw) 
             {
-                DrawBuffer(CreatePage(++mod % 2));
+                DrawBuffer(CreatePage());
             }
         }
 
-        public CharInfo[,] CreatePage(int mod = 0)
+        public CharInfo[,] CreatePage(ushort mod = 0)
         {
             CharInfo[,] page = new CharInfo[height, width];
+            ushort fg = 0;
+            ushort bg = 0;
+            const string disp = "░▒▓";
+            int curr = 0;
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    if (myQuad.PointIsInside(new Vector(y, x)))
+                    ushort colour = (ushort)(Colour.Hues[bg] + (Colour.Hues[fg] << 4));
+                    page[y, x] = new CharInfo
                     {
-                        page[y, x] = new CharInfo
-                        {
-                            Char = '@',
-                            Attributes = 0x0040
-                        };
-                    }
-                    else
+                        Char = disp[curr],
+                        Attributes = colour
+                    };
+
+                    curr++;
+                    if (curr == 2)
                     {
-                        page[y, x] = new CharInfo
-                        {
-                            Char = ' ',
-                            Attributes = 0x0000
-                        };
+                        fg++;
+                        curr = 0;
                     }
+
+                    if (fg == 16)
+                    {
+                        bg++;
+                        fg = 0;
+                    }
+
+                    if (bg == 16)
+                    {
+                        bg = 0;
+                    }
+
 
                 }
             }
@@ -102,4 +116,7 @@ namespace AsciiDraw
         }
 
     }
+
 }
+
+
