@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace AsciiDraw
 {
-    static internal class ColorAdapter
+    static public class Mathf
     {
-        static public CharInfo RGBToConsolePixel(int r, int g, int b)
+        static public double Lerp(double a, double b, double f)
         {
-            return new CharInfo();
+            return (a * (1.0 - f)) + (b * f);
         }
+
         
     }
 }

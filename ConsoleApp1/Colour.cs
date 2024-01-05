@@ -35,8 +35,6 @@ namespace AsciiDraw
 
             0b0111, // black
             0b1111, // gray
-
-
         };
         //private const int FOREGROUND_BLUE = 0x0001;
         //private const int FOREGROUND_GREEN = 0x0002;

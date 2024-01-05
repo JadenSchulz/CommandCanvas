@@ -21,6 +21,12 @@ namespace AsciiDraw
         private short width;
         private short height;
 
+        int r = 0;
+        int g = 0;
+        int b = 0;
+
+        ColorSpace colorSpace = new ColorSpace();
+
         private readonly IShape myShape = new Triangle(new Vector(20, 0), new Vector(0, 20), new Vector(0, 0));
 
         public Viewport(short width, short height) 
@@ -56,41 +62,33 @@ namespace AsciiDraw
         public CharInfo[,] CreatePage(ushort mod = 0)
         {
             CharInfo[,] page = new CharInfo[height, width];
-            ushort fg = 0;
-            ushort bg = 0;
-            const string disp = "░▒▓";
-            int curr = 0;
+
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    ushort colour = (ushort)(Colour.Hues[bg] + (Colour.Hues[fg] << 4));
-                    page[y, x] = new CharInfo
-                    {
-                        Char = disp[curr],
-                        Attributes = colour
-                    };
+                    page[y, x] = (CharInfo)colorSpace.GetColor(r, g, b)!;
 
-                    curr++;
-                    if (curr == 2)
+                    r+= 8;
+                    if (r > 255)
                     {
-                        fg++;
-                        curr = 0;
+                        r = 0;
+                        g+= 8;
                     }
 
-                    if (fg == 16)
+                    if (g > 255)
                     {
-                        bg++;
-                        fg = 0;
+                        g = 0;
+                        b+=8;
                     }
 
-                    if (bg == 16)
+                    if (b > 255)
                     {
-                        bg = 0;
+                        b = 0;
                     }
-
-
                 }
+
+
             }
             return page;
         }
