@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AsciiDraw;
 using AsciiDraw.Shapes;
+using System.ComponentModel.DataAnnotations;
 
 namespace AsciiDraw
 {
@@ -20,7 +21,13 @@ namespace AsciiDraw
         private short width;
         private short height;
 
-        private readonly Quad myQuad = new Quad(new Vector(25, 0), new Vector(0, 10), new Vector(5, 25), new Vector(30, 15), null);
+        int r = 0;
+        int g = 0;
+        int b = 0;
+
+        ColorSpace colorSpace = new ColorSpace();
+
+        private readonly IShape myShape = new Triangle(new Vector(20, 0), new Vector(0, 20), new Vector(0, 0));
 
         public Viewport(short width, short height) 
         {
@@ -29,49 +36,59 @@ namespace AsciiDraw
             _handle = ConsoleHelper.GetOutputHandle();
         }
 
+        public void Initialize()
+        {
+            Console.SetWindowSize(width, height);
+            Console.SetBufferSize(width, height);
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+        }
+
         public void Draw()
         {
             _draw = true;
-            Console.SetWindowSize(width, height);
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
             Thread drawThread = new Thread(DrawLoop);
             drawThread.Start();
         }
 
         private void DrawLoop()
         {
-            int mod = 0;
+            ushort mod = 0;
             while (_draw) 
             {
-                DrawBuffer(CreatePage(++mod % 2));
+                DrawBuffer(CreatePage());
             }
         }
 
-        public CharInfo[,] CreatePage(int mod = 0)
+        public CharInfo[,] CreatePage(ushort mod = 0)
         {
             CharInfo[,] page = new CharInfo[height, width];
+
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    if (myQuad.PointIsInside(new Vector(y, x)))
+                    page[y, x] = (CharInfo)colorSpace.GetColor(r, g, b)!;
+
+                    r+= 8;
+                    if (r > 255)
                     {
-                        page[y, x] = new CharInfo
-                        {
-                            Char = '@',
-                            Attributes = 0x0040
-                        };
-                    }
-                    else
-                    {
-                        page[y, x] = new CharInfo
-                        {
-                            Char = ' ',
-                            Attributes = 0x0000
-                        };
+                        r = 0;
+                        g+= 8;
                     }
 
+                    if (g > 255)
+                    {
+                        g = 0;
+                        b+=8;
+                    }
+
+                    if (b > 255)
+                    {
+                        b = 0;
+                    }
                 }
+
+
             }
             return page;
         }
@@ -97,4 +114,7 @@ namespace AsciiDraw
         }
 
     }
+
 }
+
+

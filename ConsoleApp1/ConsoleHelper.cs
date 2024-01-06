@@ -22,7 +22,7 @@ namespace AsciiDraw
     struct CharInfo
     {
         [FieldOffset(0)] public ushort Char;
-        [FieldOffset(2)] public short Attributes;
+        [FieldOffset(2)] public ushort Attributes;
     }
     [StructLayout(LayoutKind.Sequential)]
     struct Coord
