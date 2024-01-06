@@ -8,9 +8,9 @@ namespace AsciiDraw
 {
     static public class Mathf
     {
-        static public double Lerp(double a, double b, double f)
+        static public double Lerp(double from, double to, double weight)
         {
-            return (a * (1.0 - f)) + (b * f);
+            return from + ((to - from) * weight); ;
         }
 
         

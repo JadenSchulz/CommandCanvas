@@ -8,18 +8,18 @@ namespace AsciiDraw.Shapes
 {
     internal class Triangle : IShape
     {
-        public Vector A { get; set; }
-        public Vector B { get; set; }
-        public Vector C { get; set; }
+        public Vector2i A { get; set; }
+        public Vector2i B { get; set; }
+        public Vector2i C { get; set; }
 
-        public Triangle (Vector A, Vector B, Vector C)
+        public Triangle (Vector2i A, Vector2i B, Vector2i C)
         {
             this.A = A;
             this.B = B;
             this.C = C;
         }
 
-        public bool PointIsInside(Vector p)
+        public bool PointIsInside(Vector2i p)
         {
             var s = (A.X - C.X) * (p.Y - C.Y) - (A.Y - C.Y) * (p.X - C.X);
             var t = (B.X - A.X) * (p.Y - A.Y) - (B.Y - A.Y) * (p.X - A.X);

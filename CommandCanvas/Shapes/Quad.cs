@@ -9,12 +9,12 @@ namespace AsciiDraw.Shapes
 {
     internal class Quad : IShape
     {
-        public Vector A { get; set; }
-        public Vector B { get; set; }
-        public Vector C { get; set; }
-        public Vector D { get; set; }
+        public Vector2i A { get; set; }
+        public Vector2i B { get; set; }
+        public Vector2i C { get; set; }
+        public Vector2i D { get; set; }
         public Color? Color { get; set; }
-        public Quad(Vector topLeft, Vector topRight, Vector bottomRight, Vector bottomLeft, Color? color)
+        public Quad(Vector2i topLeft, Vector2i topRight, Vector2i bottomRight, Vector2i bottomLeft, Color? color)
         {
             A = topLeft;
             B = topRight;
@@ -22,12 +22,12 @@ namespace AsciiDraw.Shapes
             D = bottomLeft;
             Color = color;
         }
-        public bool PointIsInside(Vector point)
+        public bool PointIsInside(Vector2i point)
         {
-            Vector AM = A.VectorTo(point);
-            Vector AB = A.VectorTo(B);
-            Vector BC = B.VectorTo(C);
-            Vector BM = B.VectorTo(point);
+            Vector2i AM = A.VectorTo(point);
+            Vector2i AB = A.VectorTo(B);
+            Vector2i BC = B.VectorTo(C);
+            Vector2i BM = B.VectorTo(point);
 
             double AMAB = AM.Dot(AB);
             double ABAB = AB.Dot(AB);

@@ -8,6 +8,6 @@ namespace AsciiDraw.Shapes
 {
     internal interface IShape
     {
-        public bool PointIsInside(Vector point);
+        public bool PointIsInside(Vector2i point);
     }
 }

@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="gigasnes.png" />
+    <None Remove="test1.png" />
+    <None Remove="test2.png" />
+    <None Remove="test3.png" />
+    <None Remove="test4.png" />
+    <None Remove="test5.png" />
+    <None Remove="test6.png" />
+    <None Remove="Test7.png" />
+    <None Remove="test8.png" />
+    <None Remove="test9.jpg" />
+    <None Remove="testLarge.png" />
+    <None Remove="Trumpeee.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
+  </ItemGroup>
+
+</Project>
