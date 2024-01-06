@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CommandCanvas": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\textj\\source\\repos\\Personal\\CommandCanvas\\CommandCanvas\\test9.jpg"
+    }
+  }
+}

@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace AsciiDraw
 {
-    public class Vector
+    public class Vector2i
     {
         public int X { get; set; }
         public int Y { get; set; }
 
-        public Vector(int x, int y)
+        public Vector2i(int x, int y)
         {
             X = x;
             Y = y;
         }
-        public int Dot(Vector with)
+        public int Dot(Vector2i with)
         {
             return (X * with.X) + (Y * with.Y);
         }
@@ -26,11 +26,11 @@ namespace AsciiDraw
             return Math.Sqrt(X * X + Y * Y);
         }
 
-        public Vector VectorTo(Vector to)
+        public Vector2i VectorTo(Vector2i to)
         {
             int x2 = (to.X - X);
             int y2 = (to.Y - Y); 
-            return new Vector(x2, y2);
+            return new Vector2i(x2, y2);
         }
     }
 

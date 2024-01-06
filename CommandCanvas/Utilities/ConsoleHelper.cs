@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,6 +51,20 @@ namespace AsciiDraw
             SafeFileHandle outputHandle = CreateFile("CONOUT$", 0x40000000, 2, IntPtr.Zero, FileMode.Open, 0, IntPtr.Zero);
             if (outputHandle.IsInvalid) throw new Exception("outputHandle is invalid!");
             return outputHandle;
+        }
+
+        public static void DrawBuffer(CharInfo[,] buffer, short width, short height)
+        {
+            [DllImport("kernel32.dll", SetLastError = true)]
+            static extern bool WriteConsoleOutputW(
+              SafeFileHandle hConsoleOutput,
+              CharInfo[,] lpBuffer,
+              Coord dwBufferSize,
+              Coord dwBufferCoord,
+            ref Rectangle lpWriteRegion);
+
+            Rectangle rect = new(0, 0, (short)(width - 1), (short)(height - 1));
+            WriteConsoleOutputW(GetOutputHandle(), buffer, new Coord(width, height), new Coord(0, 0), ref rect);
         }
 
     }
