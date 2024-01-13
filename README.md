@@ -6,7 +6,7 @@ It is not currently compatible with Linux or MacOS.
 Usage
 =========
 To use CommandCanvas, run it with the following syntax:
-`CommandCanvas <path>`
+`CommandCanvas.exe <path>`
 
 Accepted file formats are: BMP, GIF, EXIF, JPG, PNG and TIFF.
 
